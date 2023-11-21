@@ -24,7 +24,7 @@ PQTL_local<-function (name, key, savefile, PATH, GWASsummay, outname, kb, r2){
     if (class(test2) == "try-error") {
       cat(i, "由于网络502问题未完成clump")
       test3<-(try(total <- merge(GWASsummay, exp_temp, by = "SNP")))
-      if(class(test3)!="NULL"){
+      if(dim(total)[[1]]!=0){
         exp3 <- total[, c("SNP", "effect_allele.exposure",
                           "other_allele.exposure", "beta.exposure", "se.exposure",
                           "pval.exposure", "id.exposure", "exposure",
@@ -36,7 +36,7 @@ PQTL_local<-function (name, key, savefile, PATH, GWASsummay, outname, kb, r2){
         dat <- harmonise_data(exposure_dat = exp3, outcome_dat = out3,
                               action = 2)
         test4<-(try(data_h <- dat %>% subset(dat$mr_keep == TRUE)))
-        if (class(test4)!="NULL"){
+        if (dim(data_h)[[1]]!=0){
           data_h$Fvalue <- (data_h$beta.exposure/data_h$se.exposure) *
             (data_h$beta.exposure/data_h$se.exposure)
           data_h_TableS1 <- data_h[, c("exposure", "SNP",
@@ -76,7 +76,7 @@ PQTL_local<-function (name, key, savefile, PATH, GWASsummay, outname, kb, r2){
       write.csv(E_temp, "未匹配到IVs.csv", row.names = F)}}
     else {
       test5<-(try(total <- merge(GWASsummay, exp_temp, by = "SNP")))
-      if(class(test5)!="NULL"){
+      if(dim(total)[[1]]!=0){
         exp3 <- total[, c("SNP", "effect_allele.exposure",
                           "other_allele.exposure", "beta.exposure", "se.exposure",
                           "pval.exposure", "id.exposure", "exposure",
@@ -88,7 +88,7 @@ PQTL_local<-function (name, key, savefile, PATH, GWASsummay, outname, kb, r2){
         dat <- harmonise_data(exposure_dat = exp3, outcome_dat = out3,
                               action = 2)
         test6<-(try(data_h <- dat %>% subset(dat$mr_keep == TRUE)))
-        if (class(test6)!="NULL"){
+        if (dim(data_h)[[1]]!=0){
           data_h$Fvalue <- (data_h$beta.exposure/data_h$se.exposure) *
             (data_h$beta.exposure/data_h$se.exposure)
           data_h_TableS1 <- data_h[, c("exposure", "SNP",

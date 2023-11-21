@@ -41,7 +41,7 @@ PQTL_IEU<-function (savefile, PATH, GWASID, outname, kb, r2) {
         dat <- harmonise_data(exposure_dat = exp, outcome_dat = out,
                               action = 2)
         test4<-(try(data_h <- dat %>% subset(dat$mr_keep == TRUE)))
-        if (class(test4)!="NULL"){
+        if (dim(data_h)[[1]]!=0){
           res <- mr(data_h)
 
           data_h$Fvalue <- (data_h$beta.exposure/data_h$se.exposure) *
@@ -102,7 +102,7 @@ PQTL_IEU<-function (savefile, PATH, GWASID, outname, kb, r2) {
         dat <- harmonise_data(exposure_dat = exp, outcome_dat = out,
                               action = 2)
         test6<-(try(data_h <- dat %>% subset(dat$mr_keep == TRUE)))
-        if (class(test6)!="NULL"){
+        if (dim(data_h)[[1]]!=0){
           res <- mr(dat)
 
           data_h$Fvalue <- (data_h$beta.exposure/data_h$se.exposure) *
@@ -145,3 +145,4 @@ PQTL_IEU<-function (savefile, PATH, GWASID, outname, kb, r2) {
   }
   cat("当前分析已完成")
 }
+
